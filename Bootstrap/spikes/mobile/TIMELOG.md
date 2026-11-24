@@ -24,3 +24,10 @@
 | **RN total effectif** | ≈ 36 min | ~3 + 24 min 46 + 8 min 29 ; dont 12 min 30 perdues dans l'OOM |
 | **KMP / Compose Multiplatform** START | 15:40:41 | timebox 60 min |
 | KMP : build bloqué par le garde-fou (exécution du wrapper Gradle d'un dépôt cloné) | 15:41:24 | **chrono en pause** en attente de ton accord ; wrapper vérifié identique à l'officiel Gradle 9.6.1 |
+| KMP reprise (accord explicite pour lancer Gradle) | 2026-11-24 11:43:08 | ~2 min consommées avant la pause (clone + vérification du wrapper) |
+| KMP J1 (Gradle officiel vérifié + projet écrit à la main, pas de `create` en CLI) | 11:45:34 | |
+| KMP J2 + J3 (APK debug, BuildConfig depuis l'env) | 11:47:56 | build 2 min 16 (cache Gradle déjà chaud), APK debug 13,9 Mo, 1er essai |
+| KMP J4 (client /ping + 3 tests verts sur la cible JVM) | 11:48:42 | pièges : `runTest` + `withTimeout` (temps virtuel), DSL `androidLibrary` et `runComposeUiTest` dépréciés |
+| KMP J5 (émulateur, "Statut : ok") | 11:50:09 | build incrémental 4 s ; le label du champ est un enfant non focusable (hint vide), à vérifier avec TalkBack |
+| KMP J6 (APK release via Docker, testé) | 11:56:39 | build Docker `--no-cache` 3 min 47 (image de base tirée avant), APK 10,2 Mo, 1er essai |
+| **KMP total effectif** | ≈ 15 min 30 | ≈ 2 min (23/11) + 13 min 31 (24/11) |

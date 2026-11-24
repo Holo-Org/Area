@@ -6,32 +6,32 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.shared)
+    implementation(project(":shared"))
     implementation(libs.androidx.activity.compose)
-    implementation(libs.compose.uiToolingPreview)
-    implementation(libs.compose.foundation)
-    implementation(libs.ktor.client.okhttp)
 }
 
 android {
-    namespace = "com.jetbrains.kmpapp"
+    namespace = "eu.epitech.area.spike"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.jetbrains.kmpapp"
+        applicationId = "eu.epitech.area.spike.kmp"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        // Default server address read from the environment at build time, never written in the source.
+        val serverUrl = providers.environmentVariable("AREA_SERVER_URL").getOrElse("")
+        buildConfigField("String", "AREA_SERVER_URL", "\"$serverUrl\"")
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+    buildFeatures {
+        buildConfig = true
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            // Spike only: signed with the debug key so the APK is installable. Use a real key for the project.
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
