@@ -1,0 +1,14 @@
+# Sorties de build et dépendances : les spikes versionnent le code et les preuves, pas les artefacts.
+**/build/
+**/out/
+**/.dart_tool/
+**/.gradle/
+**/.kotlin/
+**/node_modules/
+**/.expo/
+**/local.properties
+*.apk
+*.log
+# Expo : android/ et ios/ sont générés par `expo prebuild`
+react-native/app/android/
+react-native/app/ios/
